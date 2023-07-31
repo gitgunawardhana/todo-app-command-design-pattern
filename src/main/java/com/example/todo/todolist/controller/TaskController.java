@@ -27,7 +27,6 @@ public class TaskController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addTask(@RequestBody TaskDto taskDto) {
-        System.out.println(taskDto.getDescription());
         taskService.addTask(taskDto.getId(), taskDto.getDescription());
         return ResponseEntity.status(HttpStatus.CREATED).body("Task added successfully");
     }
