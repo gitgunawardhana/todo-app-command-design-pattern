@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { twMerge } from "tailwind-merge";
-import { completeTask, deleteTask } from "../../services/api";
 import { ProviderContext } from "../provider";
 
 function Task(props) {
-  const { refreshHandle, setRefreshHandle } = useContext(ProviderContext);
+  const { completeTask, deleteTask } = useContext(ProviderContext);
+
   return (
     <div
       className={twMerge([
@@ -29,7 +29,6 @@ function Task(props) {
           ])}
           onClick={() => {
             completeTask(props.todo.id);
-            setRefreshHandle(refreshHandle + 1);
           }}
         >
           complete
@@ -38,7 +37,6 @@ function Task(props) {
           className="capitalize bg-orange-400 hover:bg-orange-500 px-5 rounded-full py-2 hover:font-medium"
           onClick={() => {
             deleteTask(props.todo.id);
-            setRefreshHandle(refreshHandle + 1);
           }}
         >
           delete

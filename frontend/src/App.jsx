@@ -1,56 +1,11 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { FaRedoAlt, FaUndoAlt } from "react-icons/fa";
 import TaskList from "./components/TaskList";
 import { ProviderContext } from "./components/provider";
-import { redo, undo } from "./services/api";
 
 function App() {
-  const { refreshHandle, setRefreshHandle, todoList, setTodoList } =
+  const { todoList, addTask, undo, redo, todoDescription, setTodoDescription } =
     useContext(ProviderContext);
-
-  const [todoDescription, setTodoDescription] = useState("");
-
-  const [idCount, setIdCount] = useState(todoList.length + 1);
-
-  const addTodo = async () => {
-    if (todoDescription.length > 0) {
-      const newTodo = {
-        id: idCount,
-        description: todoDescription,
-        completed: "false",
-      };
-      await axios
-        .post("http://localhost:8080/tasks/add", newTodo)
-        .then(function (response) {
-          console.log(response);
-          setIdCount(idCount + 1);
-          setRefreshHandle(refreshHandle + 1);
-          setTodoDescription("");
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      console.log("Type Todo here...");
-    }
-  };
-
-  const getAllTodos = async () => {
-    await axios
-      .get("http://localhost:8080/tasks")
-      .then(function (response) {
-        setTodoList(response.data.reverse());
-        setIdCount(response.data.length + 1);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    getAllTodos();
-  }, [{ refreshHandle }]);
 
   return (
     <div className="bg-[#080827] min-h-screen font-normal text-sm pb-2">
@@ -82,13 +37,13 @@ function App() {
             <div className="h-7"></div>
             <button
               className="capitalize bg-green-400 hover:bg-green-500 px-5 rounded-full py-2 hover:font-medium"
-              onClick={addTodo}
+              onClick={addTask}
             >
               Add
             </button>
           </div>
         </div>
-        {undoRedoTask(setRefreshHandle, refreshHandle)}
+        {undoRedoTask(undo, redo)}
       </div>
 
       <div className="container mx-auto">
@@ -100,7 +55,7 @@ function App() {
 
 export default App;
 
-function undoRedoTask(setRefreshHandle, refreshHandle) {
+function undoRedoTask(undo, redo) {
   return (
     <div className="flex justify-between px-4 mt-10 pb-8">
       <div className="my-auto">
@@ -112,7 +67,6 @@ function undoRedoTask(setRefreshHandle, refreshHandle) {
           title="undo"
           onClick={() => {
             undo();
-            setRefreshHandle(refreshHandle + 1);
           }}
         >
           <FaUndoAlt />
@@ -122,7 +76,6 @@ function undoRedoTask(setRefreshHandle, refreshHandle) {
           title="redo"
           onClick={() => {
             redo();
-            setRefreshHandle(refreshHandle + 1);
           }}
         >
           <FaRedoAlt />
