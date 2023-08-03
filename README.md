@@ -107,7 +107,6 @@ By using the Command Design Pattern, we have achieved a flexible and extensible 
 
 ## Notes
 
-- The application uses an in-memory H2 database for demonstration purposes. Data will be reset upon restarting the application.
 - Cross-Origin Resource Sharing (CORS) is configured to allow requests from `http://127.0.0.1:5173`. You may need to update this configuration to match your frontend's domain.
 
 ## Contributions
