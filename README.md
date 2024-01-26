@@ -5,11 +5,11 @@
 This is a simple To-Do List application built using Spring Boot, React, and Tailwind CSS. The application allows users to manage their tasks by adding, completing, and deleting them. It also includes the undo and redo functionality to revert and reapply changes. The application provides a RESTful API to interact with tasks and a modern user interface built with React and styled using Tailwind CSS.
 
 The Command Design Pattern is utilized to implement the undo and redo functionality for tasks, offering a flexible and extensible approach. Each task-related action is encapsulated as a command object, enabling easy management and reversal of changes.
-
+<!--
 ## Demo
 
 Check out the application in action by watching the demo on YouTube: [To-Do List App Demo](https://youtu.be/jnWLeAB1WoU)
-
+-->
 ## Technologies Used
 
 - Java
